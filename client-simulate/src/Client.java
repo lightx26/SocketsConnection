@@ -1,19 +1,27 @@
-import java.io.*;
 
-import UploadHandle.FileSender;
+import java.time.LocalTime;
+
+import UploadHandle.Sender;
 import UploadHandle.ListProcesses;
 
 public class Client {
-    public static void main(String[] args) throws IOException {
-        String toIPAddr = "192.168.234.1";
+    public static void main(String[] args) throws Exception {
+        String toIPAddr = "127.0.0.1";
         int port = 2626;
-        String txtfilePath = "asset\\processes.txt";
-        String imgfilePath = "asset\\blue.jpg";
+        String txtfilePath = "asset\\processes";
+        // String imgfilePath = "asset\\blue.jpg";
 
-        // ListProcesses listProcesses = new ListProcesses();
-        // listProcesses.write(txtfilePath);
+        ListProcesses listProcesses = new ListProcesses();
 
-        FileSender sender = new FileSender(toIPAddr, port, imgfilePath);
-        sender.send();
+        Thread thread = new Thread();
+
+        while (true) {
+            listProcesses.write(txtfilePath);
+            Sender sender = new Sender(toIPAddr, port);
+            sender.sendFile(txtfilePath);
+            thread.sleep(3000);
+        }
+
+        // sender.close();
     }
 }
