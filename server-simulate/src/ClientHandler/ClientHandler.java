@@ -39,7 +39,9 @@ public class ClientHandler extends Thread {
             DataInputStream dataInputStream = new DataInputStream(bufferedInputStream);
 
             // Read the file name and size from the client
-            String fileName = dataInputStream.readUTF();
+            // dataInputStream.readUTF();
+
+            String fileName = GetMAC.GetMACAddress(clientSocket.getInetAddress()) + ".txt";
             dataInputStream.readLong();
 
             System.out.println("Receiving file: " + fileName);

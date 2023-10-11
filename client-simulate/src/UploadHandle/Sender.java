@@ -12,9 +12,9 @@ public class Sender {
     private Socket clientSocket;
 
     // Injection FilePath and IP, Port to create Socket
-    public Sender(String IPAddress, int Port) {
+    public Sender(Socket socket) {
         try {
-            clientSocket = new Socket(IPAddress, Port);
+            clientSocket = socket;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,7 +28,7 @@ public class Sender {
 
                 // Get the file name and size
                 File fileToSend = new File(filePath);
-                String fileName = fileToSend.getName();
+                // String fileName = fileToSend.getName();
                 long fileSize = fileToSend.length();
 
                 // Output stream to send data to the server
@@ -37,7 +37,7 @@ public class Sender {
                 DataOutputStream dataOutputStream = new DataOutputStream(bufferedOutputStream);
 
                 // Send file name and size to the server
-                dataOutputStream.writeUTF(fileName);
+                // dataOutputStream.writeUTF(fileName);
                 dataOutputStream.writeLong(fileSize);
 
                 // Input stream to read the file and send it to the server
